@@ -5,11 +5,13 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     private Rigidbody _rigidBody;
+    private Animator _animator;
     private bool _dragging;
     // Start is called before the first frame update
     void Start()
     {
-        _rigidBody = gameObject.GetComponent<Rigidbody>();
+        _rigidBody = gameObject.GetComponentInChildren<Rigidbody>();
+        _animator = gameObject.GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -21,8 +23,17 @@ public class CharacterController : MonoBehaviour
             _dragging = false;
 
         if (_dragging)
+            _rigidBody.velocity = Vector3.forward * 4f;
+
+        if (_rigidBody.velocity.magnitude > 3f)
         {
-            _rigidBody.AddForce(Vector3.forward, ForceMode.Acceleration);
+            _animator.SetBool("isRunning", true);
+            Debug.Log("true");
+        }
+        else
+        {
+            _animator.SetBool("isRunning", false);
+            Debug.Log("false");
         }
     }
 }
