@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float RotateSpeed;
+
+    [SerializeField]
+    private float ImpactForce;
 
     private Rigidbody _rigidBody;
     private Animator _animator;
@@ -33,13 +37,11 @@ public class PlayerMovement : MonoBehaviour
             _rigidBody.angularVelocity = Vector3.zero;
             Rotate();
             _animator.SetBool("isRunning", true);
-            Debug.Log("true");
         }
         else
         {
             _rigidBody.velocity = Vector3.zero;
             _animator.SetBool("isRunning", false);
-            Debug.Log("false");
         }
     }
 
@@ -52,12 +54,19 @@ public class PlayerMovement : MonoBehaviour
         if (playerPlane.Raycast(ray, out hitdist))
         {
             Vector3 targetPoint = ray.GetPoint(hitdist);
+            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotateSpeed * Time.deltaTime);
+        }
+    }
 
-            if (Vector3.Distance(targetPoint, transform.position) > 1f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotateSpeed * Time.deltaTime);
-            }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "MobileObstacle")
+            SceneManager.LoadScene("MainScene");
+
+        if (collision.gameObject.tag == "RotatingPlatform")
+        {
+            _rigidBody.AddForce(Vector3.left * 10f, ForceMode.Impulse);
         }
     }
 }
