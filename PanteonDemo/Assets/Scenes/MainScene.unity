@@ -127,31 +127,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3090248062854487655}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &122610289 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 124258, guid: 68e6cd702d40b5e42b27fa9751ff0722,
-    type: 3}
-  m_PrefabInstance: {fileID: 712250065}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &122610290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 122610289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04cc1b9412eea6e4a8798f4b2f88b4ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paintSet:
-  - mainTextureName: _MainTex
-    normalTextureName: _BumpMap
-    heightTextureName: _ParallaxMap
-    useMainPaint: 1
-    useNormalPaint: 1
-    useHeightPaint: 0
 --- !u!1001 &133150033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -351,6 +326,7 @@ GameObject:
   - component: {fileID: 302374519}
   - component: {fileID: 302374522}
   - component: {fileID: 302374523}
+  - component: {fileID: 302374524}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -444,7 +420,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302374518}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1532b32c9929ea141974a1e47a80bb2c, type: 3}
   m_Name: 
@@ -458,12 +434,27 @@ MonoBehaviour:
     rotateAngle: 0
     brushNormalBlend: 0.1
     brushHeightBlend: 0
-    brushColor: {r: 0.421064, g: 0.42414397, b: 0.86764705, a: 1}
+    brushColor: {r: 0.09019609, g: 0.9490196, b: 0.096662804, a: 1}
     colorBlendType: 0
     normalBlendType: 0
     heightBlendType: 0
   useMethodType: 0
   erase: 0
+--- !u!114 &302374524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302374518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf6a96d572eab24da5e081db0ab0c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 0}
+  inputTexture: {fileID: 0}
+  histogramData: 
 --- !u!1001 &349243858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -914,7 +905,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.19
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -977,69 +968,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &712250065
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1658515968}
-    m_Modifications:
-    - target: {fileID: 124258, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 287.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.70710707
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70710653
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90.00001
-      objectReference: {fileID: 0}
-    - target: {fileID: 2330664, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2330664, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 68e6cd702d40b5e42b27fa9751ff0722, type: 3}
---- !u!4 &712250066 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 431784, guid: 68e6cd702d40b5e42b27fa9751ff0722,
-    type: 3}
-  m_PrefabInstance: {fileID: 712250065}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &732444479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,8 +1151,9 @@ GameObject:
   - component: {fileID: 942516901}
   - component: {fileID: 942516900}
   - component: {fileID: 942516903}
+  - component: {fileID: 942516904}
   m_Layer: 0
-  m_Name: PaintArea
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1238,8 +1167,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942516898}
   m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3.776, z: 285}
-  m_LocalScale: {x: 1.0000005, y: 0.99999994, z: 0.699263}
+  m_LocalPosition: {x: 0, y: 5.18, z: 285}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1658515968}
   m_RootOrder: 3
@@ -1324,6 +1253,21 @@ MonoBehaviour:
     useMainPaint: 1
     useNormalPaint: 0
     useHeightPaint: 0
+--- !u!114 &942516904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942516898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf6a96d572eab24da5e081db0ab0c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 0}
+  inputTexture: {fileID: 0}
+  histogramData: 
 --- !u!1001 &1023006405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1993,7 +1937,6 @@ Transform:
   - {fileID: 732444480}
   - {fileID: 1376480932}
   - {fileID: 942516899}
-  - {fileID: 712250066}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

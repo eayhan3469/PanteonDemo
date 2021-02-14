@@ -14,10 +14,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float ImpactForce;
 
+    [HideInInspector]
+    public bool IsRunOver;
+
     private Rigidbody _rigidBody;
     private Animator _animator;
     private bool _dragging;
-    private bool _isGameOver;
 
     void Start()
     {
@@ -27,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!_isGameOver)
+        if (!IsRunOver)
         {
             if (Input.GetMouseButtonDown(0))
                 _dragging = true;
@@ -89,7 +91,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "Finish")
         {
-            _isGameOver = true;
+            other.gameObject.GetComponent<BoxCollider>().enabled = false;
+            IsRunOver = true;
             Stop();
         }
     }
