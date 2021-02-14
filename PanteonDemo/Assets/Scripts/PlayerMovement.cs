@@ -92,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.tag == "Finish")
         {
             other.gameObject.GetComponent<BoxCollider>().enabled = false;
+            UIController.Instance.PercentageText.gameObject.SetActive(true);
             IsRunOver = true;
             Stop();
         }
