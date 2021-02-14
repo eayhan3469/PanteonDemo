@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rigidBody;
     private Animator _animator;
     private bool _dragging;
+    private bool _isGameOver;
 
     void Start()
     {
@@ -26,11 +27,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            _dragging = true;
-        else if (Input.GetMouseButtonUp(0))
-            _dragging = false;
+        if (!_isGameOver)
+        {
+            if (Input.GetMouseButtonDown(0))
+                _dragging = true;
+            else if (Input.GetMouseButtonUp(0))
+                _dragging = false;
 
+            Move();
+        }
+    }
+
+    private void Move()
+    {
         if (_dragging)
         {
             _rigidBody.velocity = transform.forward * MovementSpeed;
@@ -59,6 +68,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Stop()
+    {
+        _rigidBody.velocity = Vector3.zero;
+        _animator.SetBool("isRunning", false);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "MobileObstacle")
@@ -67,6 +82,15 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "RotatingPlatform")
         {
             _rigidBody.AddForce(Vector3.left * 10f, ForceMode.Impulse);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Finish")
+        {
+            _isGameOver = true;
+            Stop();
         }
     }
 }
