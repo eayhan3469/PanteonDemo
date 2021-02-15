@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
@@ -50,7 +51,8 @@ public class GameManager : MonoBehaviour
 
     public void Respawn(GameObject aiObject)
     {
-        aiObject.transform.position = SpawnPoints[Random.Range(0, SpawnPoints.Count)];
+        Destroy(aiObject);
+        Instantiate(AiObject, SpawnPoints[Random.Range(0, SpawnPoints.Count)], Quaternion.identity, AiParent);
     }
 
     void OnDrawGizmosSelected()

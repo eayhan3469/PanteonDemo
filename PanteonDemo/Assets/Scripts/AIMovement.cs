@@ -49,9 +49,9 @@ public class AIMovement : MonoBehaviour
             _index++;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        if (!_agent.pathPending && _agent.remainingDistance < 25f)
+        if (_agent.remainingDistance < 10f)
             SetNextDestination();
 
         if (_rigidbody.velocity.magnitude > 0f)
