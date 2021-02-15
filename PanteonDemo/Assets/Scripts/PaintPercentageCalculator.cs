@@ -1,4 +1,5 @@
 ﻿using Es.InkPainter;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ public class PaintPercentageCalculator : MonoBehaviour
         SetPaintedTexture();
         Debug.Log(GetRedPixelCount());
 
-        UIController.Instance.PercentageText.text = ((100 *  GetRedPixelCount()) / _totalPixelCount).ToString();
+        UIController.Instance.PercentageText.text = String.Format("{0}%", ((100 * GetRedPixelCount()) / _totalPixelCount));
     }
 
     public int GetRedPixelCount()
