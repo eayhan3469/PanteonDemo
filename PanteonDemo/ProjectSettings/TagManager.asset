@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MobileObstacle
   - RotatingPlatform
+  - DropZone
   layers:
   - Default
   - TransparentFX

@@ -78,13 +78,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "MobileObstacle")
+        if (collision.gameObject.tag == "MobileObstacle" || collision.gameObject.tag == "DropZone")
             SceneManager.LoadScene("MainScene");
-
-        if (collision.gameObject.tag == "RotatingPlatform")
-        {
-            _rigidBody.AddForce(Vector3.left * 10f, ForceMode.Impulse);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
