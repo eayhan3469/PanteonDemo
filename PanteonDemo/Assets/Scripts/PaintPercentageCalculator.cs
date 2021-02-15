@@ -28,7 +28,6 @@ public class PaintPercentageCalculator : MonoBehaviour
         }
 
         SetPaintedTexture();
-        Debug.Log(GetRedPixelCount());
 
         UIController.Instance.PercentageText.text = String.Format("{0}%", ((100 * GetRedPixelCount()) / _totalPixelCount));
     }
