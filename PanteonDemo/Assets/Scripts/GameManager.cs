@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
     private int AiCount;
 
     public static GameManager Instance { get; private set; }
+    public float CountDown;
+    public bool HasGameStart;
 
     void Awake()
     {
@@ -33,7 +36,34 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        PlayerObject = GameObject.FindGameObjectWithTag("Player");
         SpawnPlayers();
+        OnStartAsync();
+    }
+
+    private async void OnStartAsync()
+    {
+        UIController.Instance.CountDownText.gameObject.SetActive(true);
+        HasGameStart = false;
+
+        while (CountDown > 0.25f)
+            await Task.Yield();
+
+        HasGameStart = true;
+        UIController.Instance.CountDownText.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (CountDown > 0)
+        {
+            CountDown -= Time.deltaTime;
+
+            if (CountDown < 0.5f)
+                UIController.Instance.CountDownText.text = "START";
+            else
+                UIController.Instance.CountDownText.text = CountDown.ToString("0");
+        }
     }
 
     private void SpawnPlayers()
@@ -44,9 +74,13 @@ public class GameManager : MonoBehaviour
             availableSpawnPoints.Add(spawnPoint);
 
         for (int i = 0; i < AiCount; i++)
-            Instantiate(AiObject, availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)], Quaternion.identity, AiParent);
+        {
+            var rnd = Random.Range(0, availableSpawnPoints.Count);
+            Instantiate(AiObject, availableSpawnPoints[rnd], Quaternion.identity, AiParent);
+            availableSpawnPoints.Remove(availableSpawnPoints[rnd]);
+        }
 
-        //Instantiate(PlayerObject, availableSpawnPoints[0], Quaternion.identity);
+        PlayerObject.transform.position = availableSpawnPoints[0];
     }
 
     public void Respawn(GameObject aiObject)

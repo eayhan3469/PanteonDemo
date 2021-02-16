@@ -10,6 +10,9 @@ public class UIController : MonoBehaviour
     [SerializeField]
     public Text PercentageText;
 
+    [SerializeField]
+    public Text CountDownText;
+
     void Awake()
     {
         if (Instance == null)

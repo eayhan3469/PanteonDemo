@@ -51,13 +51,16 @@ public class AIMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_agent.remainingDistance < 10f)
-            SetNextDestination();
+        if (GameManager.Instance.HasGameStart)
+        {
+            if (_agent.remainingDistance < 10f)
+                SetNextDestination();
 
-        if (_rigidbody.velocity.magnitude > 0f)
-            _animator.SetBool("isRunning", true);
-        else
-            _animator.SetBool("isRunning", false);
+            if (_rigidbody.velocity.magnitude > 0f)
+                _animator.SetBool("isRunning", true);
+            else
+                _animator.SetBool("isRunning", false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -36,7 +36,8 @@ public class PlayerMovement : MonoBehaviour
             else if (Input.GetMouseButtonUp(0))
                 _dragging = false;
 
-            Move();
+            if (GameManager.Instance.HasGameStart)
+                Move();
         }
     }
 
