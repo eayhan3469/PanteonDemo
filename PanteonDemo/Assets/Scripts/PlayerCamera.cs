@@ -1,6 +1,7 @@
 ﻿using Es.InkPainter.Sample;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
@@ -38,17 +39,20 @@ public class PlayerCamera : MonoBehaviour
         }
         else
         {
-            Vector3 cameraWallPosition = new Vector3(_wall.transform.position.x, transform.position.y, transform.position.z);
-            Vector3 direction = _wall.transform.position - transform.position;
-            direction.y = 0.0f;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), (Time.deltaTime) * 50f);
-            transform.position = Vector3.MoveTowards(transform.position, cameraWallPosition, 7.5f * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, cameraWallPosition) < 0.1f && !gameObject.GetComponent<MousePainter>().enabled)
-            {
-                gameObject.GetComponent<MousePainter>().enabled = true;
-            }
-
+            LookAtWall();
         }
+    }
+
+    private void LookAtWall()
+    {
+        Vector3 cameraWallPosition = new Vector3(_wall.transform.position.x, transform.position.y, transform.position.z);
+        Vector3 direction = _wall.transform.position - transform.position;
+
+        direction.y = 0.0f;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), (Time.deltaTime) * 50f);
+        transform.position = Vector3.MoveTowards(transform.position, cameraWallPosition, 7.5f * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, cameraWallPosition) < 0.1f && transform.eulerAngles == Vector3.zero && !gameObject.GetComponent<MousePainter>().enabled)
+            gameObject.GetComponent<MousePainter>().enabled = true;
     }
 }
