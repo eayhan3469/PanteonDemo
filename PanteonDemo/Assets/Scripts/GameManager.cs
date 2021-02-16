@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public float CountDown;
     public bool HasGameStart;
 
+    private PaintPercentageCalculator _paintPercentageCalc;
+
     void Awake()
     {
         if (Instance == null)
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        _paintPercentageCalc = FindObjectOfType<PaintPercentageCalculator>();
         SpawnPlayers();
         OnStartAsync();
     }
@@ -64,6 +67,9 @@ public class GameManager : MonoBehaviour
             else
                 UIController.Instance.CountDownText.text = CountDown.ToString("0");
         }
+
+        if (_paintPercentageCalc.Percentage > 90f)
+            UIController.Instance.SkipButton.SetActive(true);
     }
 
     private void SpawnPlayers()

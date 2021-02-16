@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class PaintPercentageCalculator : MonoBehaviour
 {
+    [HideInInspector]
+    public float Percentage;
+
     private InkCanvas _inkCanvas;
     private Texture _texture;
     private RenderTexture _paintedTexture;
@@ -29,7 +32,8 @@ public class PaintPercentageCalculator : MonoBehaviour
 
         SetPaintedTexture();
 
-        UIController.Instance.PercentageText.text = String.Format("{0}%", ((100 * GetRedPixelCount()) / _totalPixelCount));
+        Percentage = ((100 * GetRedPixelCount()) / _totalPixelCount);
+        UIController.Instance.PercentageText.text = String.Format("{0}%", Percentage);
     }
 
     public int GetRedPixelCount()

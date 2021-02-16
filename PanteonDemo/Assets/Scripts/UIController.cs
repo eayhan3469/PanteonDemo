@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -13,11 +14,28 @@ public class UIController : MonoBehaviour
     [SerializeField]
     public Text CountDownText;
 
+    [SerializeField]
+    public GameObject GameOverPanel;
+
+    [SerializeField]
+    public GameObject SkipButton;
+
     void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Debug.LogError("More than one 'UIController'");
+    }
+
+    public void OnClickRestart()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void OnClickSkip()
+    {
+        SkipButton.SetActive(false);
+        GameOverPanel.SetActive(true);
     }
 }
