@@ -15,6 +15,9 @@ public class UIController : MonoBehaviour
     public Text CountDownText;
 
     [SerializeField]
+    public Text RankingText;
+
+    [SerializeField]
     public GameObject GameOverPanel;
 
     [SerializeField]

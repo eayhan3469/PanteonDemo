@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
     public bool HasGameStart;
 
     private PaintPercentageCalculator _paintPercentageCalc;
+    private List<Transform> _players;
 
     void Awake()
     {
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         _paintPercentageCalc = FindObjectOfType<PaintPercentageCalculator>();
+        _players = new List<Transform>();
         SpawnPlayers();
         OnStartAsync();
     }
@@ -70,6 +74,19 @@ public class GameManager : MonoBehaviour
 
         if (_paintPercentageCalc.Percentage > 90f)
             UIController.Instance.SkipButton.SetActive(true);
+
+        UIController.Instance.RankingText.text = String.Format("{0} / {1}", GetRankingPlace(), AiCount + 1);
+    }
+
+    private int GetRankingPlace()
+    {
+        var orderedList = _players.OrderByDescending(s => s.position.z).ToList();
+
+        for (int i = 0; i < orderedList.Count; i++)
+            if (orderedList[i].tag == "Player")
+                return i + 1;
+
+        return AiCount + 1;
     }
 
     private void SpawnPlayers()
@@ -81,18 +98,22 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < AiCount; i++)
         {
-            var rnd = Random.Range(0, availableSpawnPoints.Count);
-            Instantiate(AiObject, availableSpawnPoints[rnd], Quaternion.identity, AiParent);
+            var rnd = UnityEngine.Random.Range(0, availableSpawnPoints.Count);
+            var bot = Instantiate(AiObject, availableSpawnPoints[rnd], Quaternion.identity, AiParent);
+            _players.Add(bot.transform);
             availableSpawnPoints.Remove(availableSpawnPoints[rnd]);
         }
 
         PlayerObject.transform.position = availableSpawnPoints[0];
+        _players.Add(PlayerObject.transform);
     }
 
     public void Respawn(GameObject aiObject)
     {
+        _players.Remove(aiObject.transform);
         Destroy(aiObject);
-        Instantiate(AiObject, SpawnPoints[Random.Range(0, SpawnPoints.Count)], Quaternion.identity, AiParent);
+        var bot = Instantiate(AiObject, SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count)], Quaternion.identity, AiParent);
+        _players.Add(bot.transform);
     }
 
     void OnDrawGizmosSelected()
