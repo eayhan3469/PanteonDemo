@@ -70,7 +70,6 @@ public class AIMovement : MonoBehaviour
             _agent.isStopped = true;
             _animator.SetBool("isDancing", true);
         }
-
     }
 
     void OnDrawGizmosSelected()

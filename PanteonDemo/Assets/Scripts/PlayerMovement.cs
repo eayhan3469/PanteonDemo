@@ -86,7 +86,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "Finish")
         {
-            other.gameObject.GetComponent<BoxCollider>().enabled = false;
+//            other.gameObject.GetComponent<BoxCollider>().Raycast.ig = false;
+            other.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
             UIController.Instance.PercentageText.gameObject.SetActive(true);
             IsRunOver = true;
             Stop();
