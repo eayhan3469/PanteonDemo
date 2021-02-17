@@ -34,7 +34,7 @@ public class PlayerCamera : MonoBehaviour
             else
             {
                 Vector3 newPosition = TargetTransform.position + _cameraOffset;
-                transform.position = Vector3.Slerp(transform.position, newPosition, SmoothFactor);
+                transform.position = Vector3.Slerp(transform.position, newPosition, SmoothFactor * Time.deltaTime);
             }
         }
         else

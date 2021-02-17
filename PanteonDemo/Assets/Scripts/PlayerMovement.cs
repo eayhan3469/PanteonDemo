@@ -45,8 +45,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_dragging)
         {
-            _rigidBody.velocity = transform.forward * MovementSpeed;
-            _rigidBody.angularVelocity = Vector3.zero;
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, MovementSpeed * Time.deltaTime);
             Rotate();
             _animator.SetBool("isRunning", true);
         }

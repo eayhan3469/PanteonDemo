@@ -21,14 +21,15 @@ public class PaintPercentageCalculator : MonoBehaviour
     private void Start()
     {
         _inkCanvas = gameObject.GetComponent<InkCanvas>();
+        _paintedTexture = _inkCanvas.GetPaintMainTexture(gameObject.name);
+        _paintedTexture2D = new Texture2D(512, 512, TextureFormat.RGB24, false);
+        
     }
 
     private void LateUpdate()
     {
         if (_texture == null)
-        {
             SetTexture();
-        }
 
         SetPaintedTexture();
 
@@ -61,18 +62,15 @@ public class PaintPercentageCalculator : MonoBehaviour
 
     private void SetPaintedTexture()
     {
-        _paintedTexture = _inkCanvas.GetPaintMainTexture(gameObject.name);
-
         if (_paintedTexture != null)
             _paintedTexture2D = ConvertToTexture2D(_paintedTexture);
     }
 
     private Texture2D ConvertToTexture2D(RenderTexture rTex)
     {
-        Texture2D tex = new Texture2D(512, 512, TextureFormat.RGB24, false);
         RenderTexture.active = rTex;
-        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
-        tex.Apply();
-        return tex;
+        _paintedTexture2D.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
+        _paintedTexture2D.Apply();
+        return _paintedTexture2D;
     }
 }

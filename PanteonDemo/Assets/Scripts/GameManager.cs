@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Transform AiParent;
-
+    
     [SerializeField]
     private GameObject PlayerObject;
 
