@@ -53,7 +53,7 @@ public class AIMovement : MonoBehaviour
     {
         if (GameManager.Instance.HasGameStart)
         {
-            if (_agent.remainingDistance < 10f)
+            if (_agent.remainingDistance < 15f)
                 SetNextDestination();
 
             if (_rigidbody.velocity.magnitude > 0f)
@@ -66,13 +66,11 @@ public class AIMovement : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Finish")
+        {
             _agent.isStopped = true;
-    }
+            _animator.SetBool("isDancing", true);
+        }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "MobileObstacle" || collision.gameObject.tag == "DropZone")
-            GameManager.Instance.Respawn(gameObject);
     }
 
     void OnDrawGizmosSelected()

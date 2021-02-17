@@ -108,14 +108,6 @@ public class GameManager : MonoBehaviour
         _players.Add(PlayerObject.transform);
     }
 
-    public void Respawn(GameObject aiObject)
-    {
-        _players.Remove(aiObject.transform);
-        Destroy(aiObject);
-        var bot = Instantiate(AiObject, SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count)], Quaternion.identity, AiParent);
-        _players.Add(bot.transform);
-    }
-
     void OnDrawGizmosSelected()
     {
         foreach (var pos in SpawnPoints)
