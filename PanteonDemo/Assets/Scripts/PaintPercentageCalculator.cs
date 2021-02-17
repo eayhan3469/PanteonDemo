@@ -23,7 +23,6 @@ public class PaintPercentageCalculator : MonoBehaviour
         _inkCanvas = gameObject.GetComponent<InkCanvas>();
         _paintedTexture = _inkCanvas.GetPaintMainTexture(gameObject.name);
         _paintedTexture2D = new Texture2D(512, 512, TextureFormat.RGB24, false);
-        
     }
 
     private void LateUpdate()

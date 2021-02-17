@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         _animator = gameObject.GetComponentInChildren<Animator>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!IsRunOver)
         {
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_dragging)
         {
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, MovementSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, transform.position + transform.forward, MovementSpeed * Time.deltaTime);
             Rotate();
             _animator.SetBool("isRunning", true);
         }
@@ -86,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "Finish")
         {
-            //            other.gameObject.GetComponent<BoxCollider>().Raycast.ig = false;
             other.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
             UIController.Instance.PercentageText.gameObject.SetActive(true);
             IsRunOver = true;
