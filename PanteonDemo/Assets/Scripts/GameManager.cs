@@ -18,13 +18,11 @@ public class GameManager : MonoBehaviour
     private GameObject PlayerObject;
 
     [SerializeField]
-    private List<Vector3> SpawnPoints;
-
-    [SerializeField]
     [Tooltip("Max 10")]
     private int AiCount;
-
+    
     public static GameManager Instance { get; private set; }
+    public List<Vector3> SpawnPoints;
     public float CountDown;
     public bool HasGameStart;
 
@@ -106,6 +104,14 @@ public class GameManager : MonoBehaviour
 
         PlayerObject.transform.position = availableSpawnPoints[0];
         _players.Add(PlayerObject.transform);
+    }
+
+    public void Respawn(GameObject aiObject)
+    {
+        _players.Remove(aiObject.transform);
+        Destroy(aiObject);
+        var bot = Instantiate(AiObject, SpawnPoints[UnityEngine.Random.Range(0, SpawnPoints.Count)], Quaternion.identity, AiParent);
+        _players.Add(bot.transform);
     }
 
     void OnDrawGizmosSelected()

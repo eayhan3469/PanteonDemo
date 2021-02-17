@@ -63,6 +63,12 @@ public class AIMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "MobileObstacle" || collision.gameObject.tag == "DropZone")
+            GameManager.Instance.Respawn(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Finish")
